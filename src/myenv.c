@@ -1,15 +1,14 @@
+#include "myenv.h"
 #include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
 
-void usage()
+void usage(void)
 {
 	printf("Usage: env [OPTION]... [-] [NAME=VALUE]... [COMMAND [ARG]...]\n"
 		"Set each NAME to VALUE in the environment and run COMMAND.\n");
 	return;
 }
 
-void printEnv()
+void printEnv(void)
 {
 	for (char** env = environ; *env; env++)
 	{
@@ -19,33 +18,12 @@ void printEnv()
 	return;
 }
 
-// required so that the program can access the environment
-extern char **environ;
-
-void main(int argc, char* argv[])
+bool isEnvVar ( const char argument[] )
 {
-	int optc;
-	int flags = 1;
-	while ((optc = getopt(argc, argv, ":ha")) != -1) {
-		switch (optc) {
-			case 'h':
-				usage();
-				return;
-			case 'a':
-				printf("Do something\n");
-				break;
-		}
-		flags++;
-	}
-	while ( flags < argc )
+	for (; *argument; ++argument)
 	{
-		// if the string contains an '=' set as an env var
-		putenv(argv[flags]);
-		flags++;
+		if ( *argument == '=' )
+			return true;
 	}
-
-	// if no arguments passed print out the environment
-	if (argc == 1) {
-		printEnv();
-	}
+	return false;
 }
