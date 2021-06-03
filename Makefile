@@ -13,7 +13,7 @@ myenv: src/myenv.c src/main.c
 test: test.o
 	./test.o
 
-test.o: src/myenv.c src/tests.c
+test.o: src/myenv.c src/tests.c src/minunit.h
 	${CC} ${CFLAGS} src/myenv.c src/tests.c -o test.o
 
 clean:

@@ -5,6 +5,7 @@
 #include <stdio.h>
 
 int tests_run = 0;
+int tests_failed = 0;
 
 static char* test_isEnvVar_true(void)
 {
@@ -36,13 +37,9 @@ static char* all_tests()
 int main()
 {
 	char* result = all_tests();
-	if (result != 0)
-	{
-		printf("%s\n", result);
-	} else {
-		printf("ALL TESTS PASSED\n");
-	}
-	printf("Tests run: %d\n", tests_run);
+	
+	printf("==============================\n");
+	printf("\tTests run: %d\nTests passed: %d, Tests failed %d\n", tests_run, tests_run - tests_failed, tests_failed);
 
 	return result != 0;
 }
