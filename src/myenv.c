@@ -20,6 +20,9 @@ void printEnv(void)
 
 bool isEnvVar ( const char argument[] )
 {
+	if ( argument == NULL )
+		return false;
+
 	for (; *argument; ++argument)
 	{
 		if ( *argument == '=' )

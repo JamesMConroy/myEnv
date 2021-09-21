@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-int main(int argc, char* argv[])
+int main(int argc, char** argv)
 {
 	int optc;
 	while ((optc = getopt(argc, argv, ":ih")) != -1) {
@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
 				break;
 		}
 	}
-	
+
 	argv += optind;
 	for (; *argv; argv++ )
 	{
@@ -32,12 +32,13 @@ int main(int argc, char* argv[])
 		}
 	}
 	
-	execvp(*argv, argv);
 
 	// if no arguments passed print out the environment
 	if (argc == 1) {
 		printEnv();
+		return 0;
 	}
 
+	execvp(*argv, argv);
 	return 0;
 }
